@@ -23,10 +23,10 @@ const authConfig = {
     }),
   ],
   callbacks: {
-    authorized({ auth, request }: { auth: any; request: Request }) {
+    authorized({ auth }) {
       return !!auth?.user;
     },
-    async signIn({ user, account, profile }: { user: User; account: any; profile: any }) {
+    async signIn({ user }: { user: User; }) {
       try {
         if (!user.email || !user.name) {
           console.error('Missing user email or name:', user);
