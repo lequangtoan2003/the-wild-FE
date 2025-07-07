@@ -46,7 +46,6 @@ export default async function Page() {
   }
 
   const bookings = await getBookingsByGuestId(session.user.guestId);
-  console.log("booking data v2:", bookings);
 
  
   return (

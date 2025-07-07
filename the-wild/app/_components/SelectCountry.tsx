@@ -15,7 +15,6 @@ interface SelectCountryProps {
 
 async function SelectCountry({ defaultCountry, name, id, className }: SelectCountryProps) {
   const countries = await getCountries();
-  console.log("countries", countries)
   // let countries: Country[] = [];
   // try {
   //   countries = await getCountries() || [];
@@ -24,7 +23,7 @@ async function SelectCountry({ defaultCountry, name, id, className }: SelectCoun
   // }
 
   const flag = countries.find((country: Country) => country.name === defaultCountry)?.flag ?? '';
-    console.log("flag", `${defaultCountry}%${flag}`)
+  
     
   return (
     <select

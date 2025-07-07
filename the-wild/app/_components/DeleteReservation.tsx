@@ -6,7 +6,7 @@ import { useTransition } from 'react';
 import {Spinner} from "@heroui/spinner";
 
 interface DeleteReservationProps {
-  bookingId: string; // Giả định bookingId là string, khớp với _id trong Booking
+  bookingId: string; 
   onDelete: (bookingId: string) => Promise<void>; // Định nghĩa onDelete là hàm async
 }
 function DeleteReservation({ bookingId, onDelete }: DeleteReservationProps) {
