@@ -1,7 +1,7 @@
 
 import { Suspense } from "react";
 import Cabins from "../../_components/Cabin";
-import { getCabinById, getCabins } from "../../_lib/data-cabins";
+import { getCabinById} from "../../_lib/data-cabins";
 import Reservation from "@/app/_components/Reservation";
 import {Spinner} from "@heroui/spinner";
 
@@ -16,13 +16,13 @@ export async function generateMetadata({ params }: { params: Promise<{ cabinId: 
 }
 
 
-export async function generateStaticParams() {
-  const cabins = await getCabins();
+// export async function generateStaticParams() {
+//   const cabins = await getCabins();
 
-  const ids = cabins.map((cabin) => ({ cabinId: String(cabin._id) }));
+//   const ids = cabins.map((cabin) => ({ cabinId: String(cabin._id) }));
 
-  return ids;
-}
+//   return ids;
+// }
 
 
 export default async function Page({ params }: { params: Promise<{ cabinId: string }> }) {
