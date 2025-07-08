@@ -1,7 +1,7 @@
 import NextAuth, { User } from 'next-auth';
 import Google from 'next-auth/providers/google';
 import { createGuest, getGuest } from './data-guests';
-
+export const runtime = 'nodejs';
 
 interface Session {
   user: {
@@ -9,10 +9,11 @@ interface Session {
     name?: string;
     image?: string;
     guestId?: string;
-    nationality?: string; 
-    country_flag?: string; 
+    nationality?: string;
+    country_flag?: string;
     national_id?: string;
   };
+  expires: string; // Thêm thuộc tính expires
 }
 
 const authConfig = {
@@ -26,7 +27,7 @@ const authConfig = {
     authorized({ auth }) {
       return !!auth?.user;
     },
-    async signIn({ user }: { user: User; }) {
+    async signIn({ user }: { user: User }) {
       try {
         if (!user.email || !user.name) {
           console.error('Missing user email or name:', user);
@@ -42,14 +43,15 @@ const authConfig = {
         return false;
       }
     },
-    async session({ session }: { session: Session }){
+    async session({ session }: { session: Session;}) {
       const guest = await getGuest(session.user.email);
       if (guest) {
         session.user.guestId = guest._id;
-        session.user.nationality = guest.nationality; // Thêm nationality vào session
-        session.user.country_flag = guest.country_flag; // Thêm country_flag vào session
+        session.user.nationality = guest.nationality;
+        session.user.country_flag = guest.country_flag;
         session.user.national_id = guest.national_id;
       }
+      // Đảm bảo session.expires được đặt (thường được NextAuth xử lý tự động)
       return session;
     },
   },

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { eachDayOfInterval } from 'date-fns';
 
+
 export interface Booking {
   _id: string;
   guestId?: number;

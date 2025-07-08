@@ -24,10 +24,21 @@ interface IGuest {
   national_id?: string;
 
 }
+// Mở rộng kiểu User và Session từ NextAuth
+declare module "next-auth" {
+  interface User {
+    guestId?: string;
+  }
+  interface Session {
+    user?: User & {
+      guestId?: string;
+    };
+  }
+}
 
 
 
-export async function updateGuest(formData: any) {
+export async function updateGuest(formData) {
   //Authencation
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
@@ -102,7 +113,7 @@ export async function createBooking(bookingData, formData: FormData) {
     // // Làm mới cache và chuyển hướng
     revalidatePath(`/cabins/${bookingData.cabinId}`);
     // redirect('/cabins/thankyou');
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating booking:', error.message);
     throw new Error(error.response?.data?.error || 'Booking could not be created');
   }
@@ -134,7 +145,7 @@ export async function deleteReservation(bookingId) {
     } else {
       throw new Error(response.data.rs || 'Xóa đặt chỗ thất bại');
     }
-  } catch (error: AxiosError | any) {
+  } catch (error) {
     const errorMessage = error.response?.data?.rs 
       ? error.response.data.rs 
       : (error.message || 'Lỗi khi xóa đặt chỗ');
@@ -181,7 +192,7 @@ const bookingId = formData.get("bookingId")?.toString();
 
 
   
-  } catch (error: any) {
+  } catch (error) {
     console.error("Lỗi chi tiết:", error.response?.data || error.message);
     const errorMessage = error.response?.data?.rs 
       ? error.response.data.rs 

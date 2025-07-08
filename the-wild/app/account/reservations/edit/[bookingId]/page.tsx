@@ -4,7 +4,7 @@ import { getCabinById} from "@/app/_lib/data-cabins"
 import SubmitButton from "@/app/_components/SubmitButton"
 
 
-export default async function Page({ params }: { params: { bookingId: string } }) {
+export default async function Page({ params }) {
     const resolvedParams = await params; // Chờ params được phân giải
   const bookingId = resolvedParams.bookingId;
     const booking = await getBookingById(bookingId)

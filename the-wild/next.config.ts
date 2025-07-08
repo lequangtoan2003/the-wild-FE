@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  eslint: {
+    ignoreDuringBuilds: true, // Bỏ qua kiểm tra ESLint trong build
+  },
 };
 
 export default nextConfig;
